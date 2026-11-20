@@ -1,0 +1,336 @@
+/* ==========================================================================
+   Calm Morning Gateway — Circadian Design Tokens & Base Reset
+   Biophilic Warm Studio Palette: Morning Warmth · Deep Work Flow · Evening Cedar
+   ========================================================================== */
+
+:root,
+:root[data-mood="morning"] {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg-canvas: #FAF6F0;
+  --bg-shell-container: rgba(246, 241, 233, 0.88);
+  --bg-surface: #FFFFFF;
+  --bg-surface-glass: rgba(255, 255, 255, 0.94);
+  --bg-subtle: #F2ECE1;
+  --bg-wellness: #EBF3EE;
+  --bg-wellness-glass: rgba(235, 243, 238, 0.95);
+  --bg-elevated: #FFFFFF;
+  --drop-marker-color: #C86D51;
+
+  /* Text */
+  --text-primary: #2B2623;
+  --text-secondary: #6E655F;
+  --text-muted: #9C928B;
+  --text-on-accent: #FFFFFF;
+
+  /* Accents & Status */
+  --accent-primary: #C86D51;
+  --accent-primary-hover: #B45C40;
+  --accent-primary-soft: rgba(200, 109, 81, 0.12);
+  --accent-calm: #4A6B5D;
+  --accent-calm-soft: rgba(74, 107, 93, 0.12);
+  --accent-danger: #B84A39;
+  --accent-danger-soft: rgba(184, 74, 57, 0.12);
+  --accent-warning: #C4843D;
+  --accent-warning-soft: rgba(196, 132, 61, 0.14);
+
+  /* Chrome & Geometry */
+  --border-subtle: rgba(43, 38, 35, 0.08);
+  --border-strong: rgba(43, 38, 35, 0.16);
+  --shadow-card: 0 2px 10px rgba(43, 38, 35, 0.04);
+  --shadow-modal: 0 18px 48px rgba(43, 38, 35, 0.16);
+  --backdrop-overlay: rgba(43, 38, 35, 0.34);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Zero-Network Editorial & UI Font Stacks */
+  --font-serif: 'Instrument Serif', 'Newsreader', 'Georgia', ui-serif, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Smooth Circadian Theme Transition */
+  --transition-theme: background-color 400ms ease, color 400ms ease, border-color 400ms ease, box-shadow 400ms ease;
+
+  /* Scrollbars */
+  --scrollbar-thumb: rgba(43, 38, 35, 0.18);
+  --scrollbar-thumb-hover: rgba(43, 38, 35, 0.32);
+}
+
+:root[data-mood="deep-work"] {
+  color-scheme: light;
+
+  --bg-canvas: #F3EFEA;
+  --bg-shell-container: rgba(238, 233, 226, 0.88);
+  --bg-surface: #FAF8F5;
+  --bg-surface-glass: rgba(250, 248, 245, 0.94);
+  --bg-subtle: #EAE4DC;
+  --bg-wellness: #E8F0EC;
+  --bg-wellness-glass: rgba(232, 240, 236, 0.95);
+  --bg-elevated: #FFFFFF;
+  --drop-marker-color: #4A6B5D;
+
+  --text-primary: #26221F;
+  --text-secondary: #68605A;
+  --text-muted: #948B84;
+  --text-on-accent: #FFFFFF;
+
+  --accent-primary: #4A6B5D;
+  --accent-primary-hover: #3D5A4E;
+  --accent-primary-soft: rgba(74, 107, 93, 0.12);
+  --accent-calm: #3E5C50;
+  --accent-calm-soft: rgba(62, 92, 80, 0.13);
+  --accent-danger: #B84A39;
+  --accent-danger-soft: rgba(184, 74, 57, 0.12);
+  --accent-warning: #C4843D;
+  --accent-warning-soft: rgba(196, 132, 61, 0.14);
+
+  --border-subtle: rgba(43, 38, 35, 0.07);
+  --border-strong: rgba(43, 38, 35, 0.15);
+  --shadow-card: 0 1px 4px rgba(43, 38, 35, 0.03);
+  --shadow-modal: 0 18px 48px rgba(43, 38, 35, 0.14);
+}
+
+/* System Dark Preference when data-theme="auto" (or unset) */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"],
+  :root:not([data-theme]) {
+    color-scheme: dark;
+
+    --bg-canvas: #1B1917;
+    --bg-shell-container: rgba(18, 16, 15, 0.84);
+    --bg-surface: #262320;
+    --bg-surface-glass: rgba(36, 33, 30, 0.94);
+    --bg-subtle: #312D29;
+    --bg-wellness: #2A241E;
+    --bg-wellness-glass: rgba(42, 36, 30, 0.95);
+    --bg-elevated: #2E2A26;
+    --drop-marker-color: #D49A6A;
+
+    --text-primary: #EDE8E1;
+    --text-secondary: #A89F96;
+    --text-muted: #756D65;
+    --text-on-accent: #1B1917;
+
+    --accent-primary: #D49A6A;
+    --accent-primary-hover: #E0AA7B;
+    --accent-primary-soft: rgba(212, 154, 106, 0.16);
+    --accent-calm: #7A9A8B;
+    --accent-calm-soft: rgba(122, 154, 139, 0.16);
+    --accent-danger: #D96B59;
+    --accent-danger-soft: rgba(217, 107, 89, 0.16);
+    --accent-warning: #E0A458;
+    --accent-warning-soft: rgba(224, 164, 88, 0.16);
+
+    --border-subtle: rgba(237, 232, 225, 0.09);
+    --border-strong: rgba(237, 232, 225, 0.18);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.25);
+    --shadow-modal: 0 20px 56px rgba(0, 0, 0, 0.55);
+    --backdrop-overlay: rgba(12, 10, 9, 0.62);
+
+    --scrollbar-thumb: rgba(237, 232, 225, 0.16);
+    --scrollbar-thumb-hover: rgba(237, 232, 225, 0.3);
+  }
+}
+
+/* Evening Wind-Down (17:30+) & Explicit Dark Mode: Warm Cedar Night */
+:root[data-mood="evening"],
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-canvas: #1B1917;
+  --bg-shell-container: rgba(18, 16, 15, 0.84);
+  --bg-surface: #262320;
+  --bg-surface-glass: rgba(36, 33, 30, 0.94);
+  --bg-subtle: #312D29;
+  --bg-wellness: #2A241E;
+  --bg-wellness-glass: rgba(42, 36, 30, 0.95);
+  --bg-elevated: #2E2A26;
+  --drop-marker-color: #D49A6A;
+
+  --text-primary: #EDE8E1;
+  --text-secondary: #A89F96;
+  --text-muted: #756D65;
+  --text-on-accent: #1B1917;
+
+  --accent-primary: #D49A6A;
+  --accent-primary-hover: #E0AA7B;
+  --accent-primary-soft: rgba(212, 154, 106, 0.16);
+  --accent-calm: #7A9A8B;
+  --accent-calm-soft: rgba(122, 154, 139, 0.16);
+  --accent-danger: #D96B59;
+  --accent-danger-soft: rgba(217, 107, 89, 0.16);
+  --accent-warning: #E0A458;
+  --accent-warning-soft: rgba(224, 164, 88, 0.16);
+
+  --border-subtle: rgba(237, 232, 225, 0.09);
+  --border-strong: rgba(237, 232, 225, 0.18);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-modal: 0 20px 56px rgba(0, 0, 0, 0.55);
+  --backdrop-overlay: rgba(12, 10, 9, 0.62);
+
+  --scrollbar-thumb: rgba(237, 232, 225, 0.16);
+  --scrollbar-thumb-hover: rgba(237, 232, 225, 0.3);
+}
+
+/* Explicit Light Override during Evening Wind-Down: Warm Amber Cream */
+:root[data-mood="evening"][data-theme="light"] {
+  color-scheme: light;
+
+  --bg-canvas: #FBF5EC;
+  --bg-shell-container: rgba(248, 241, 230, 0.88);
+  --bg-surface: #FFFDF9;
+  --bg-surface-glass: rgba(255, 253, 249, 0.94);
+  --bg-subtle: #F3E9DB;
+  --bg-wellness: #F4EDE1;
+  --bg-wellness-glass: rgba(244, 237, 225, 0.95);
+  --bg-elevated: #FFFFFF;
+  --drop-marker-color: #B86B3B;
+
+  --text-primary: #2D2520;
+  --text-secondary: #6F6258;
+  --text-muted: #9D8F84;
+  --text-on-accent: #FFFFFF;
+
+  --accent-primary: #B86B3B;
+  --accent-primary-hover: #9E592E;
+  --accent-primary-soft: rgba(184, 107, 59, 0.13);
+  --accent-calm: #4A6B5D;
+  --accent-calm-soft: rgba(74, 107, 93, 0.12);
+  --accent-danger: #B84A39;
+  --accent-danger-soft: rgba(184, 74, 57, 0.12);
+  --accent-warning: #C4843D;
+  --accent-warning-soft: rgba(196, 132, 61, 0.14);
+
+  --border-subtle: rgba(45, 37, 32, 0.08);
+  --border-strong: rgba(45, 37, 32, 0.16);
+  --shadow-card: 0 2px 10px rgba(45, 37, 32, 0.05);
+  --shadow-modal: 0 18px 48px rgba(45, 37, 32, 0.16);
+  --backdrop-overlay: rgba(45, 37, 32, 0.34);
+
+  --scrollbar-thumb: rgba(45, 37, 32, 0.18);
+  --scrollbar-thumb-hover: rgba(45, 37, 32, 0.32);
+}
+
+/* --------------------------------------------------------------------------
+   Base Reset & Crisp Typography
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: var(--transition-theme);
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  transition: var(--transition-theme);
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol {
+  margin-top: 0;
+}
+
+ul,
+ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Accessible Focus Rings */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Subtle Warm Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+/* Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

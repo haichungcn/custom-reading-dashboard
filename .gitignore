@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+.env
+.env*
+ledger.jsonl
+data/
+data/latest-sync.json
+dist/
+.calm-gateway/
+*.local.json
+tmp/

@@ -1,0 +1,23 @@
+{
+  "name": "Calm Morning Gateway",
+  "short_name": "Calm Gateway",
+  "description": "Warm, mindful daily objectives, tactical TODOs, daily digest, weather, and reading queue across desktop, iPhone, and iPad.",
+  "start_url": "./index.html?source=pwa",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FAF6F0",
+  "theme_color": "#4A6B5D",
+  "icons": [
+    {
+      "src": "icons/icon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

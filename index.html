@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en" data-view="newtab" data-mood="morning" data-theme="auto" data-focus="false" data-active-tab="focus" data-layout-edit="false" data-bg-glass="true">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Calm Morning Gateway</title>
+  <meta name="description" content="Warm, mindful daily objectives, tactical TODOs, daily digest, weather & widget store, customizable layout, and circadian nerdy wallpapers." />
+  <meta name="theme-color" content="#4A6B5D" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Calm Gateway" />
+  <link rel="manifest" href="pwa-manifest.json" />
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/icon-48.png" />
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <!-- Ambient Daily-Switching & Time-of-Day Nerdy Background Layer -->
+  <div class="gateway-bg-layer" id="gateway-bg-layer" aria-hidden="true">
+    <img class="gateway-bg-img is-pixel-art" id="gateway-bg-img" alt="" />
+    <div class="gateway-bg-tint" id="gateway-bg-tint"></div>
+  </div>
+
+  <div class="gateway-shell" id="gateway-shell" data-active-tab="focus">
+    <!-- Top Mindful Header & Wellness Bar -->
+    <header class="gateway-header">
+      <div class="header-greeting-group">
+        <div class="header-greeting-row">
+          <h1 class="header-greeting" id="header-greeting">Good morning</h1>
+          <span class="header-date" id="header-date"></span>
+        </div>
+        <p class="header-quote" id="focus-theme-display" role="button" tabindex="0" title="Click to edit daily focus motto">Clarity over volume.</p>
+        <form class="quick-add-form" id="focus-theme-form" hidden>
+          <input type="text" class="quick-input" id="focus-theme-input" aria-label="Edit daily focus motto" maxlength="120" placeholder="Enter your calm focus motto..." />
+          <button type="submit" class="btn btn-primary btn-sm">Save</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="focus-theme-cancel-btn">Cancel</button>
+        </form>
+      </div>
+
+      <div class="wellness-pill" id="wellness-pill" role="region" aria-label="Mindful wellness prompt">
+        <span class="wellness-pill-text" id="wellness-pill-text">🌿 Mindful Stretch: Roll your shoulders gently and breathe.</span>
+        <span class="wellness-pill-actions">
+          <button type="button" class="btn btn-calm btn-sm" id="wellness-done-btn" title="Log break taken">✓ Done</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="wellness-breathe-btn" title="Open 60-second breathing guide (w)">🧘 Breathe</button>
+        </span>
+      </div>
+
+      <div class="header-controls">
+        <button type="button" class="btn btn-sm" id="cmd-palette-btn" title="Open Command & Search Palette (⌘K / Ctrl+K)">🔍 ⌘K</button>
+        <button type="button" class="btn btn-sm" id="widget-store-btn" title="Open Widget Store — Add or Remove Widgets (u)">🧩 Widgets</button>
+        <button type="button" class="btn btn-sm" id="layout-edit-btn" aria-pressed="false" title="Rearrange Components & Customize Layout (l)">📐 Layout</button>
+        <button type="button" class="btn btn-sm" id="bg-settings-btn" title="Configure Daily Nerdy Wallpaper & Mood (g)">🖼️ Wallpaper</button>
+        <label class="sr-only" for="mood-select">Circadian Mood</label>
+        <select class="btn btn-sm" id="mood-select" aria-label="Circadian Mood" title="Select circadian mood (m to cycle)">
+          <option value="auto">Auto Mood</option>
+          <option value="morning">🌅 Morning Warmth</option>
+          <option value="deep-work">🧘 Deep Work Flow</option>
+          <option value="evening">🍵 Evening Wind-Down</option>
+        </select>
+        <button type="button" class="btn btn-sm" id="theme-toggle-btn" title="Cycle Light / Dark theme">🌓 Auto</button>
+        <button type="button" class="btn btn-sm" id="focus-mode-btn" aria-pressed="false" title="Toggle Deep-Work Focus Mode (f)">🧘 Focus: OFF</button>
+        <button type="button" class="btn btn-sm" id="sync-status-btn" title="Sync with Private GitHub Gist">☁️ Local Ready</button>
+        <button type="button" class="btn btn-icon" id="settings-btn" aria-label="Gateway & Sync Settings" title="Sync & Gateway Settings">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Interactive Layout Customization Banner (visible when 📐 Layout mode is ON) -->
+    <section class="layout-customize-bar" id="layout-customize-bar" aria-label="Customize dashboard layout" hidden>
+      <div class="layout-customize-hint">
+        <span class="pill-badge is-calm">📐 Layout Edit Mode</span>
+        <span>Drag any card's <strong>⠿</strong> handle across zones, press <strong>Space</strong> on <strong>⠿</strong> for keyboard arrows, or use the quick zone buttons on each widget.</span>
+      </div>
+      <div class="inline-add-row">
+        <button type="button" class="btn btn-calm btn-sm" id="layout-open-store-btn">🧩 + Add / Remove Widgets</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="layout-reset-btn">↺ Reset Default Layout</button>
+        <button type="button" class="btn btn-primary btn-sm" id="layout-done-btn">✓ Done</button>
+      </div>
+    </section>
+
+    <!-- Evening Wind-Down Anti-Overwork Guardian Banner (17:30+) -->
+    <section class="evening-guardian-banner" id="evening-guardian-banner" aria-labelledby="evening-guardian-heading" hidden>
+      <div class="evening-guardian-content">
+        <h2 class="evening-guardian-title" id="evening-guardian-heading">🌿 Time to Unplug &amp; Recharge</h2>
+        <p class="evening-guardian-text" id="evening-guardian-text">
+          Stepping away protects your creative energy. Take 5 minutes to stretch, hydrate, and close work tabs.
+        </p>
+      </div>
+      <div class="evening-guardian-actions">
+        <button type="button" class="btn btn-calm" id="evening-breathe-btn">🧘 Start Guided Breathing / Stretch</button>
+        <button type="button" class="btn btn-primary" id="evening-rollover-btn">🌅 Roll Over Remaining Tasks to Tomorrow</button>
+      </div>
+    </section>
+
+    <!-- Zone 1: Full-Width Top Deck -->
+    <div
+      class="widget-zone widget-zone-wide"
+      id="zone-top"
+      data-zone="top"
+      data-zone-placeholder="⤢ Full-Width Top Deck — Drag or move any widget here"
+    ></div>
+
+    <!-- Zones 2 & 3: Main 2-Column Workspace Grid -->
+    <main class="gateway-grid" id="gateway-grid">
+      <!-- Left Column -->
+      <div
+        class="col-execution widget-zone"
+        id="zone-left"
+        data-zone="left"
+        data-zone-placeholder="← Left Column — Drag or move any widget here"
+      >
+        <!-- Widget: Daily Objectives ("The Big 3") -->
+        <section class="card-panel" id="widget-objectives" data-widget-id="objectives" data-mobile-section="focus" aria-labelledby="objectives-heading">
+          <div class="card-header">
+            <div class="card-title-group">
+              <button type="button" class="widget-drag-handle" data-drag-widget="objectives" aria-pressed="false" aria-label="Drag or press Space to reorder Daily Objectives" title="Drag to rearrange · Space + Arrow keys">⠿</button>
+              <h2 class="card-title" id="objectives-heading">🎯 Daily Objectives</h2>
+            </div>
+            <span class="card-badge" id="objectives-badge">0 of 3</span>
+          </div>
+          <div class="widget-layout-bar" data-layout-bar="objectives"></div>
+          <div class="card-body">
+            <ul class="objective-list" id="objective-list"></ul>
+            <p class="pill-badge is-warning" id="objective-guardrail-hint" hidden>3/3 set — keep focus light</p>
+            <form class="quick-add-form" id="objective-add-form">
+              <input type="text" class="quick-input" id="objective-input" placeholder="+ Add Objective (Max 3, optional URL)..." aria-label="Add daily objective" />
+              <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- Widget: Tactical TODOs -->
+        <section class="card-panel" id="widget-todos" data-widget-id="todos" data-mobile-section="focus" aria-labelledby="todos-heading">
+          <div class="card-header">
+            <div class="card-title-group">
+              <button type="button" class="widget-drag-handle" data-drag-widget="todos" aria-pressed="false" aria-label="Drag or press Space to reorder Tactical TODOs" title="Drag to rearrange · Space + Arrow keys">⠿</button>
+              <h2 class="card-title" id="todos-heading">✅ Tactical TODOs</h2>
+            </div>
+            <span class="card-badge" id="todos-badge">0%</span>
+          </div>
+          <div class="widget-layout-bar" data-layout-bar="todos"></div>
+          <div class="card-body">
+            <div class="progress-strip">
+              <span id="todos-progress-label">0 of 0 completed · 0%</span>
+              <div class="progress-bar-track" aria-hidden="true">
+                <div class="progress-bar-fill" id="todos-progress-fill"></div>
+              </div>
+            </div>
+            <ul class="todo-list" id="todo-list"></ul>
+            <form class="quick-add-form" id="todo-add-form">
+              <input type="text" class="quick-input" id="todo-input" placeholder="+ Add TODO (or paste URL, #tag)..." aria-label="Add tactical TODO" />
+              <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            </form>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-ghost btn-sm" id="clear-completed-todos-btn">Clear Completed</button>
+            <button type="button" class="btn btn-calm btn-sm" id="rollover-day-btn">🍵 Wrap Up Day &amp; Rollover</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div
+        class="col-knowledge widget-zone"
+        id="zone-right"
+        data-zone="right"
+        data-zone-placeholder="→ Right Column — Drag or move any widget here"
+      >
+        <!-- Widget: Weather Forecast -->
+        <section class="card-panel" id="widget-weather" data-widget-id="weather" data-mobile-section="focus" aria-labelledby="weather-heading">
+          <div class="card-header">
+            <div class="card-title-group">
+              <button type="button" class="widget-drag-handle" data-drag-widget="weather" aria-pressed="false" aria-label="Drag or press Space to reorder Weather Forecast" title="Drag to rearrange · Space + Arrow keys">⠿</button>
+              <h2 class="card-title" id="weather-heading">🌤️ Weather Forecast</h2>
+            </div>
+            <div class="digest-actions">
+              <button type="button" class="btn btn-ghost btn-sm" id="weather-city-toggle-btn" aria-expanded="false" title="Change city or location">📍 Weather City</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="weather-unit-btn" title="Switch Celsius / Fahrenheit">°C</button>
+              <button type="button" class="btn btn-icon btn-sm" id="weather-refresh-btn" aria-label="Refresh weather forecast" title="Refresh weather">🔄</button>
+            </div>
+          </div>
+          <div class="widget-layout-bar" data-layout-bar="weather"></div>
+          <div class="card-body">
+            <!-- Collapsible City Picker & Search -->
+            <div class="inline-add-panel" id="weather-city-panel" hidden>
+              <form class="quick-add-form" id="weather-search-form">
+                <input type="search" class="quick-input" id="weather-city-input" placeholder="Search city (e.g. London, Tokyo, San Francisco)..." autocomplete="off" aria-label="Search weather city" />
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                <button type="button" class="btn btn-calm btn-sm" id="weather-geo-btn" title="Use browser geolocation">📍 My Location</button>
+              </form>
+              <div class="preset-chips-grid" id="weather-preset-cities"></div>
+              <ul class="weather-search-results" id="weather-search-results"></ul>
+            </div>
+
+            <div class="weather-hero" id="weather-hero">
+              <div class="weather-primary">
+                <span class="weather-big-icon" id="weather-current-icon">⛅</span>
+                <div>
+                  <div class="weather-temp-value" id="weather-current-temp">--°C</div>
+                  <div class="weather-condition-label" id="weather-current-desc">Loading forecast…</div>
+                </div>
+              </div>
+              <div class="weather-stats-grid" id="weather-stats-grid"></div>
+            </div>
+
+            <div class="weather-hourly-strip" id="weather-hourly-strip" aria-label="Upcoming hourly forecast"></div>
+            <ul class="weather-daily-list" id="weather-daily-list" aria-label="5-day weather forecast"></ul>
+          </div>
+        </section>
+
+        <!-- Widget: Daily Digest & Team Pulse (Default Collapsed to 5 Items) -->
+        <section class="card-panel" id="widget-slack" data-widget-id="slack" data-mobile-section="digest" aria-labelledby="slack-heading">
+          <div class="card-header">
+            <div class="card-title-group">
+              <button type="button" class="widget-drag-handle" data-drag-widget="slack" aria-pressed="false" aria-label="Drag or press Space to reorder Daily Digest" title="Drag to rearrange · Space + Arrow keys">⠿</button>
+              <h2 class="card-title" id="slack-heading">💬 Daily Digest</h2>
+            </div>
+            <div class="digest-actions">
+              <span class="card-badge" id="slack-meta-badge">Latest</span>
+              <button type="button" class="btn btn-ghost btn-sm" id="slack-toggle-add-btn" aria-expanded="false">+ Add Item</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="slack-body-collapse-btn" aria-expanded="true" title="Collapse or expand entire Daily Digest panel">Collapse ▴</button>
+            </div>
+          </div>
+          <div class="widget-layout-bar" data-layout-bar="slack"></div>
+          <div class="card-body">
+            <form class="inline-add-panel" id="slack-add-form" hidden>
+              <div class="inline-add-row">
+                <input type="text" class="quick-input" id="slack-channel-input" placeholder="#engineering" aria-label="Digest channel or topic" />
+                <input type="text" class="quick-input" id="slack-badge-input" placeholder="Badge (e.g. Decision, Action Needed)" aria-label="Optional status badge" />
+              </div>
+              <input type="text" class="quick-input" id="slack-headline-input" placeholder="Headline takeaway..." aria-label="Digest item headline" />
+              <input type="text" class="quick-input" id="slack-summary-input" placeholder="Optional concise summary..." aria-label="Digest item summary" />
+              <input type="url" class="quick-input" id="slack-url-input" placeholder="Optional thread/PR URL (https:// or obsidian://)..." aria-label="Digest item reference URL" />
+              <div class="inline-add-row">
+                <button type="submit" class="btn btn-primary btn-sm">Add Digest Item</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="slack-cancel-add-btn">Cancel</button>
+              </div>
+            </form>
+            <ul class="digest-list" id="slack-digest-list"></ul>
+            <div class="slack-expand-footer" id="slack-expand-footer" hidden>
+              <button type="button" class="btn btn-calm btn-sm slack-expand-btn" id="slack-expand-btn" aria-expanded="false">
+                Show all items ▾
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Widget: Reading Queue & Bookmarks -->
+        <section class="card-panel" id="widget-bookmarks" data-widget-id="bookmarks" data-mobile-section="queue" aria-labelledby="bookmarks-heading">
+          <div class="card-header">
+            <div class="card-title-group">
+              <button type="button" class="widget-drag-handle" data-drag-widget="bookmarks" aria-pressed="false" aria-label="Drag or press Space to reorder Reading Queue" title="Drag to rearrange · Space + Arrow keys">⠿</button>
+              <h2 class="card-title" id="bookmarks-heading">📚 Reading Queue</h2>
+            </div>
+            <span class="card-badge" id="bookmarks-badge">0 saved</span>
+          </div>
+          <div class="widget-layout-bar" data-layout-bar="bookmarks"></div>
+          <div class="card-body">
+            <div class="filter-pills" id="bookmark-filter-pills" role="tablist" aria-label="Filter bookmarks by tag or status"></div>
+            <ul class="bookmark-list" id="bookmark-list"></ul>
+            <form class="quick-add-form" id="bookmark-add-form">
+              <input type="text" class="quick-input" id="bookmark-input" placeholder="+ Paste URL to bookmark (optional title, #tag)..." aria-label="Add bookmark URL" />
+              <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Zone 4: Full-Width Bottom Deck -->
+    <div
+      class="widget-zone widget-zone-wide"
+      id="zone-bottom"
+      data-zone="bottom"
+      data-zone-placeholder="⤢ Full-Width Bottom Deck — Drag or move any widget here"
+    >
+      <!-- Widget: Discovery Stream -->
+      <section class="discovery-drawer" id="discovery-drawer" data-widget-id="discovery" data-mobile-section="feed" aria-labelledby="discovery-heading">
+        <div class="discovery-drawer-header">
+          <div class="discovery-drawer-title-group">
+            <button type="button" class="widget-drag-handle" data-drag-widget="discovery" aria-pressed="false" aria-label="Drag or press Space to reorder Discovery Stream" title="Drag to rearrange · Space + Arrow keys">⠿</button>
+            <h2 class="card-title" id="discovery-heading">⚡ Discovery Stream</h2>
+            <div class="filter-pills" id="rss-source-tabs" role="tablist" aria-label="Filter discovery feed sources"></div>
+          </div>
+          <div class="discovery-drawer-actions">
+            <button type="button" class="btn btn-ghost btn-sm" id="rss-refresh-btn">🔄 Refresh</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="rss-manage-btn" title="Manage RSS Sources (r)">⚙️ Manage RSS</button>
+            <a class="btn btn-ghost btn-sm" id="open-dailydev-link" href="https://app.daily.dev" target="_blank" rel="noopener noreferrer">Open Daily.dev ↗</a>
+            <button type="button" class="btn btn-ghost btn-sm" id="rss-collapse-btn" aria-expanded="true">Collapse ▾</button>
+          </div>
+        </div>
+        <div class="widget-layout-bar" data-layout-bar="discovery"></div>
+        <div class="discovery-drawer-body">
+          <div class="discovery-cards-grid" id="discovery-cards-grid"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Off-Stage Widget Parking Pool (Holds unplaced Widget Store widgets cleanly) -->
+    <div id="widget-parking-pool" hidden>
+      <!-- Widget: Focus Pomodoro Timer -->
+      <section class="card-panel" id="widget-pomodoro" data-widget-id="pomodoro" data-mobile-section="focus" aria-labelledby="pomodoro-heading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <button type="button" class="widget-drag-handle" data-drag-widget="pomodoro" aria-pressed="false" aria-label="Drag or press Space to reorder Focus Pomodoro Timer">⠿</button>
+            <h2 class="card-title" id="pomodoro-heading">⏱️ Focus Pomodoro</h2>
+          </div>
+          <span class="card-badge" id="pomo-sessions-badge">0 sprints</span>
+        </div>
+        <div class="widget-layout-bar" data-layout-bar="pomodoro"></div>
+        <div class="card-body">
+          <div class="filter-pills" id="pomo-preset-pills">
+            <button type="button" class="filter-pill is-active" data-pomo-mins="25" data-pomo-mode="focus">25m Sprint</button>
+            <button type="button" class="filter-pill" data-pomo-mins="50" data-pomo-mode="focus">50m Deep Work</button>
+            <button type="button" class="filter-pill" data-pomo-mins="5" data-pomo-mode="break">5m Recharge</button>
+          </div>
+          <div class="pomo-stage">
+            <span class="header-date" id="pomo-phase-label">Ready for calm focus</span>
+            <div class="pomo-clock-readout" id="pomo-clock-readout">25:00</div>
+            <div class="pomo-controls">
+              <button type="button" class="btn btn-primary btn-sm" id="pomo-start-btn">▶ Start</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="pomo-reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Widget: Global Chapter World Clocks -->
+      <section class="card-panel" id="widget-world-clock" data-widget-id="world-clock" data-mobile-section="digest" aria-labelledby="world-clock-heading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <button type="button" class="widget-drag-handle" data-drag-widget="world-clock" aria-pressed="false" aria-label="Drag or press Space to reorder Global Chapter Clocks">⠿</button>
+            <h2 class="card-title" id="world-clock-heading">🌍 Global Chapter Clocks</h2>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm" id="wc-toggle-add-btn" aria-expanded="false">+ Add TZ</button>
+        </div>
+        <div class="widget-layout-bar" data-layout-bar="world-clock"></div>
+        <div class="card-body">
+          <form class="quick-add-form" id="wc-add-form" hidden>
+            <select class="quick-input" id="wc-timezone-select" aria-label="Select timezone"></select>
+            <button type="submit" class="btn btn-primary btn-sm">Add</button>
+          </form>
+          <ul class="world-clock-list" id="world-clock-list"></ul>
+        </div>
+      </section>
+
+      <!-- Widget: Quick Scratchpad -->
+      <section class="card-panel" id="widget-scratchpad" data-widget-id="scratchpad" data-mobile-section="focus" aria-labelledby="scratchpad-heading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <button type="button" class="widget-drag-handle" data-drag-widget="scratchpad" aria-pressed="false" aria-label="Drag or press Space to reorder Quick Scratchpad">⠿</button>
+            <h2 class="card-title" id="scratchpad-heading">📝 Quick Scratchpad</h2>
+          </div>
+          <span class="card-badge" id="scratchpad-status-badge">0 words</span>
+        </div>
+        <div class="widget-layout-bar" data-layout-bar="scratchpad"></div>
+        <div class="card-body">
+          <textarea class="quick-input scratchpad-textarea" id="scratchpad-textarea" placeholder="Jot down standup notes, incident timestamps, curl snippets, or architecture thoughts (auto-saved locally & synced)..." aria-label="Quick scratchpad"></textarea>
+          <div class="card-footer">
+            <span class="header-date" id="scratchpad-saved-hint">Auto-saved locally</span>
+            <button type="button" class="btn btn-ghost btn-sm" id="scratchpad-clear-btn">Clear Note</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Widget: Quick Dev Launchpad -->
+      <section class="card-panel" id="widget-launchpad" data-widget-id="launchpad" data-mobile-section="queue" aria-labelledby="launchpad-heading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <button type="button" class="widget-drag-handle" data-drag-widget="launchpad" aria-pressed="false" aria-label="Drag or press Space to reorder Quick Dev Launchpad">⠿</button>
+            <h2 class="card-title" id="launchpad-heading">🚀 Quick Dev Launchpad</h2>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm" id="lp-toggle-add-btn" aria-expanded="false">+ Shortcut</button>
+        </div>
+        <div class="widget-layout-bar" data-layout-bar="launchpad"></div>
+        <div class="card-body">
+          <form class="inline-add-panel" id="lp-add-form" hidden>
+            <div class="inline-add-row">
+              <input type="text" class="quick-input" id="lp-icon-input" placeholder="Icon (e.g. 🔧)" maxlength="4" style="max-width: 84px;" aria-label="Shortcut emoji icon" />
+              <input type="text" class="quick-input" id="lp-label-input" placeholder="Label (e.g. Grafana)" required aria-label="Shortcut label" />
+            </div>
+            <div class="quick-add-form">
+              <input type="url" class="quick-input" id="lp-url-input" placeholder="https://... or obsidian://..." required aria-label="Shortcut URL" />
+              <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            </div>
+          </form>
+          <div class="launchpad-grid" id="launchpad-grid"></div>
+        </div>
+      </section>
+
+      <!-- Widget: Daily Micro-Habits -->
+      <section class="card-panel" id="widget-habit-tracker" data-widget-id="habit-tracker" data-mobile-section="focus" aria-labelledby="habits-heading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <button type="button" class="widget-drag-handle" data-drag-widget="habit-tracker" aria-pressed="false" aria-label="Drag or press Space to reorder Daily Micro-Habits">⠿</button>
+            <h2 class="card-title" id="habits-heading">🌱 Daily Micro-Habits</h2>
+          </div>
+          <span class="card-badge" id="habits-badge">0/0 today</span>
+        </div>
+        <div class="widget-layout-bar" data-layout-bar="habit-tracker"></div>
+        <div class="card-body">
+          <ul class="todo-list" id="habit-list"></ul>
+          <form class="quick-add-form" id="habit-add-form">
+            <input type="text" class="quick-input" id="habit-input" placeholder="+ Add daily micro-habit..." aria-label="Add daily habit" />
+            <button type="submit" class="btn btn-primary btn-sm">Add</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Widget: System & Sync Telemetry -->
+      <section class="card-panel" id="widget-system-pulse" data-widget-id="system-pulse" data-mobile-section="digest" aria-labelledby="telemetry-heading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <button type="button" class="widget-drag-handle" data-drag-widget="system-pulse" aria-pressed="false" aria-label="Drag or press Space to reorder System & Sync Telemetry">⠿</button>
+            <h2 class="card-title" id="telemetry-heading">🖥️ System &amp; Sync Telemetry</h2>
+          </div>
+          <span class="card-badge" id="telemetry-mode-badge">Local-First</span>
+        </div>
+        <div class="widget-layout-bar" data-layout-bar="system-pulse"></div>
+        <div class="card-body">
+          <div class="telemetry-grid" id="telemetry-grid"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Mobile Bottom Tab Bar (<=767px PWA) -->
+    <nav class="mobile-tab-bar" aria-label="Mobile sections">
+      <button type="button" class="mobile-tab-btn is-active" data-tab="focus" aria-pressed="true">🎯<span>Focus</span></button>
+      <button type="button" class="mobile-tab-btn" data-tab="digest" aria-pressed="false">💬<span>Digest</span></button>
+      <button type="button" class="mobile-tab-btn" data-tab="queue" aria-pressed="false">📚<span>Queue</span></button>
+      <button type="button" class="mobile-tab-btn" data-tab="feed" aria-pressed="false">⚡<span>Feed</span></button>
+    </nav>
+  </div>
+
+  <!-- Subtle Floating Wallpaper Status & Quick Shuffle Bar -->
+  <div class="bg-floating-bar" id="bg-floating-bar">
+    <span id="bg-floating-label">👾 16-Bit Cyber-Bonsai</span>
+    <button type="button" class="btn btn-ghost btn-sm" id="bg-quick-shuffle-btn" title="Roll a new random nerdy wallpaper">🎲</button>
+    <button type="button" class="btn btn-ghost btn-sm" id="bg-quick-config-btn" title="Configure wallpaper & mood">⚙️</button>
+  </div>
+
+  <!-- Native Modal: Widget Store (Add / Remove / Place Any Component) -->
+  <dialog class="gateway-modal wide-studio-modal" id="widget-store-modal" closedby="any" aria-labelledby="widget-store-title">
+    <div class="modal-header">
+      <h2 class="modal-title" id="widget-store-title">🧩 Widget Store &amp; Components</h2>
+      <button type="button" class="btn btn-icon" data-close-modal="widget-store-modal" aria-label="Close Widget Store">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="card-header">
+        <div class="filter-pills" id="widget-store-filters" role="tablist" aria-label="Filter widgets"></div>
+        <div class="inline-add-row">
+          <button type="button" class="btn btn-ghost btn-sm" id="widget-store-customize-btn">📐 Rearrange on Page</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="widget-store-reset-btn">↺ Reset Default</button>
+        </div>
+      </div>
+      <div class="widget-store-grid" id="widget-store-grid"></div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary btn-sm" data-close-modal="widget-store-modal">Done</button>
+    </div>
+  </dialog>
+
+  <!-- Native Modal: Circadian Nerdy Background Studio -->
+  <dialog class="gateway-modal wide-studio-modal" id="bg-settings-modal" closedby="any" aria-labelledby="bg-settings-title">
+    <div class="modal-header">
+      <h2 class="modal-title" id="bg-settings-title">🖼️ Nerdy Wallpaper &amp; Circadian Mood Studio</h2>
+      <button type="button" class="btn btn-icon" data-close-modal="bg-settings-modal" aria-label="Close wallpaper settings">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="bg-preview-stage" id="bg-preview-stage">
+        <img class="bg-preview-img" id="bg-preview-img" alt="Active wallpaper preview" />
+        <div class="bg-preview-caption">
+          <strong id="bg-preview-name">16-Bit Cyber-Bonsai Desk</strong>
+          <div class="inline-add-row">
+            <span class="pill-badge" id="bg-preview-mood">🌅 Morning Sunrise</span>
+            <button type="button" class="btn btn-primary btn-sm" id="bg-modal-shuffle-btn">🎲 Shuffle Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline-add-panel">
+        <div class="bg-slider-grid">
+          <label class="bg-slider-field" for="bg-mode-select">
+            <span>Rotation Mode</span>
+            <select class="quick-input" id="bg-mode-select">
+              <option value="daily-random">🎲 Random Switch Every Day</option>
+              <option value="pinned">📌 Pin Selected Scene</option>
+              <option value="custom-only">🌐 Custom Image URLs Only</option>
+              <option value="off">🚫 Off (Clean Studio Canvas)</option>
+            </select>
+          </label>
+          <label class="bg-slider-field" for="bg-mood-sync-select">
+            <span>Time-of-Day Mood &amp; Lighting</span>
+            <select class="quick-input" id="bg-mood-sync-select">
+              <option value="auto">🕒 Auto (Follow Time of Day)</option>
+              <option value="morning">🌅 Morning Sunrise</option>
+              <option value="deep-work">🧘 Daylight Deep-Work</option>
+              <option value="evening">🍵 Twilight Wind-Down</option>
+              <option value="night">🌌 Midnight Phosphor</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="bg-slider-grid">
+          <label class="bg-slider-field" for="bg-opacity-range">
+            <span id="bg-opacity-label">Wallpaper Intensity: 42%</span>
+            <input type="range" id="bg-opacity-range" min="10" max="90" step="2" value="42" />
+          </label>
+          <label class="bg-slider-field" for="bg-blur-range">
+            <span id="bg-blur-label">Backdrop Blur: 0px (Crisp Pixel)</span>
+            <input type="range" id="bg-blur-range" min="0" max="16" step="1" value="0" />
+          </label>
+        </div>
+
+        <div class="inline-add-row">
+          <label class="wellness-pill-text">
+            <input type="checkbox" class="tactile-checkbox" id="bg-glass-checkbox" checked />
+            <span>Frosted Glass Cards (translucent panels over wallpaper)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="inline-add-panel">
+        <strong class="card-title">Enabled Nerdy Themes for Daily Random Switch</strong>
+        <div class="preset-chips-grid" id="bg-category-chips"></div>
+      </div>
+
+      <div class="context-section">
+        <h3 class="context-section-label">🎨 Built-In Nerdy Artworks (Click to Preview / Pin)</h3>
+        <div class="bg-gallery-grid" id="bg-gallery-grid"></div>
+      </div>
+
+      <div class="inline-add-panel">
+        <strong class="card-title">🌐 Add Custom Nerdy / Pixel Wallpaper URL</strong>
+        <form class="quick-add-form" id="bg-custom-add-form">
+          <input type="text" class="quick-input" id="bg-custom-name-input" placeholder="Name (e.g. Cyberpunk Matrix)" aria-label="Custom wallpaper name" style="max-width: 200px;" />
+          <input type="url" class="quick-input" id="bg-custom-url-input" placeholder="https://example.com/wallpaper.png" required aria-label="Custom wallpaper HTTPS URL" />
+          <label class="wellness-pill-text" title="Render with crisp pixel scaling">
+            <input type="checkbox" class="tactile-checkbox" id="bg-custom-pixel-checkbox" />
+            <span>Pixel</span>
+          </label>
+          <button type="submit" class="btn btn-primary btn-sm">+ Add</button>
+        </form>
+        <ul class="source-cards-list" id="bg-custom-list"></ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary btn-sm" data-close-modal="bg-settings-modal">Done</button>
+    </div>
+  </dialog>
+
+  <!-- Native Modal: Command Palette (⌘K / Ctrl+K) -->
+  <dialog class="gateway-modal" id="cmd-palette-modal" closedby="any" aria-labelledby="cmd-palette-title">
+    <div class="modal-header">
+      <h2 class="modal-title" id="cmd-palette-title">Quick Command &amp; Search</h2>
+      <button type="button" class="btn btn-icon" data-close-modal="cmd-palette-modal" aria-label="Close command palette">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="search" class="quick-input" id="cmd-palette-input" placeholder="Search bookmarks, TODOs, widgets, wallpapers, Slack, RSS, or commands..." autocomplete="off" aria-label="Search commands and items" />
+      <div class="cmd-palette-list" id="cmd-palette-list" role="listbox" aria-label="Search results"></div>
+    </div>
+    <div class="modal-footer">
+      <span class="cmd-shortcut">↑↓ Navigate</span>
+      <span class="cmd-shortcut">↵ Open / Run</span>
+      <span class="cmd-shortcut">Esc Close</span>
+    </div>
+  </dialog>
+
+  <!-- Native Modal: Manage RSS Sources -->
+  <dialog class="gateway-modal" id="rss-manager-modal" closedby="any" aria-labelledby="rss-manager-title">
+    <div class="modal-header">
+      <h2 class="modal-title" id="rss-manager-title">Manage Discovery &amp; AI Blog Sources</h2>
+      <button type="button" class="btn btn-icon" data-close-modal="rss-manager-modal" aria-label="Close RSS manager">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="inline-add-panel">
+        <strong class="card-title">Starter Packs &amp; OPML Portability</strong>
+        <div class="inline-add-row">
+          <button type="button" class="btn btn-calm btn-sm" id="rss-restore-pack-btn">✨ Restore AI &amp; Web Starter Pack</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="rss-clear-pack-btn">🧹 Clear All Sources</button>
+        </div>
+        <div class="inline-add-row">
+          <button type="button" class="btn btn-ghost btn-sm" id="rss-import-opml-file-btn">📥 Import OPML / JSON</button>
+          <input type="file" id="rss-import-opml-input" accept=".opml,.xml,.json,application/xml,text/xml,application/json" hidden />
+          <button type="button" class="btn btn-ghost btn-sm" id="rss-toggle-opml-paste-btn" aria-expanded="false">📋 Paste OPML / JSON</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="rss-export-opml-btn">📤 Export OPML</button>
+        </div>
+        <form class="inline-add-panel" id="rss-opml-paste-form" hidden>
+          <textarea class="quick-input context-textarea" id="rss-opml-paste-textarea" placeholder="Paste OPML 2.0 XML (&lt;opml&gt;...&lt;/opml&gt;) or JSON feed array..." aria-label="Paste OPML or JSON feed list"></textarea>
+          <div class="inline-add-row">
+            <select class="quick-input" id="rss-opml-mode-select" aria-label="OPML import mode" style="max-width: 190px;">
+              <option value="merge">Merge with existing</option>
+              <option value="replace">Replace current feeds</option>
+            </select>
+            <button type="submit" class="btn btn-primary btn-sm">Import Feeds</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="rss-opml-paste-cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+      <div class="inline-add-panel">
+        <strong class="card-title">1-Click Frontier AI &amp; Web Engineering Presets</strong>
+        <div class="preset-chips-grid" id="rss-preset-chips"></div>
+      </div>
+      <ul class="digest-list" id="rss-sources-list"></ul>
+      <form class="inline-add-panel" id="rss-add-source-form">
+        <strong class="card-title">Add Custom RSS / Atom / Blog URL</strong>
+        <div class="inline-add-row">
+          <input type="text" class="quick-input" id="rss-source-name" placeholder="Feed Name (e.g. GitLab Engineering)" required aria-label="Feed name" />
+          <input type="text" class="quick-input" id="rss-source-category" placeholder="Category (e.g. claude, gemini, web)" aria-label="Feed category" />
+        </div>
+        <input type="url" class="quick-input" id="rss-source-xml-url" placeholder="RSS / Atom XML or Blog URL (https://...)" required aria-label="RSS XML URL" />
+        <input type="url" class="quick-input" id="rss-source-site-url" placeholder="Homepage URL (optional, https://...)" aria-label="Feed homepage URL" />
+        <div class="inline-add-row">
+          <button type="submit" class="btn btn-primary btn-sm">+ Add Source</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary btn-sm" data-close-modal="rss-manager-modal">Done</button>
+    </div>
+  </dialog>
+
+  <!-- Native Modal: Item Context, Takeaways & Sources Reader -->
+  <dialog class="gateway-modal context-reader-modal" id="item-context-modal" closedby="any" aria-labelledby="ctx-modal-title">
+    <div class="modal-header">
+      <div class="digest-badges" id="ctx-modal-badges"></div>
+      <button type="button" class="btn btn-icon" data-close-modal="item-context-modal" aria-label="Close item context">✕</button>
+    </div>
+    <div class="modal-body">
+      <h2 class="context-reader-headline" id="ctx-modal-title">Item Title</h2>
+      <div class="context-reader-submeta" id="ctx-modal-submeta"></div>
+      <div class="context-reader-actions" id="ctx-modal-actions"></div>
+
+      <section class="context-section" id="ctx-summary-section">
+        <h3 class="context-section-label">📖 Context &amp; Summary</h3>
+        <p class="context-prose" id="ctx-modal-prose"></p>
+      </section>
+
+      <section class="context-section" id="ctx-keypoints-section" hidden>
+        <h3 class="context-section-label">✨ Key Takeaways &amp; Decisions</h3>
+        <ul class="context-keypoints-list" id="ctx-modal-keypoints"></ul>
+      </section>
+
+      <section class="context-section" id="ctx-sources-section">
+        <h3 class="context-section-label">🔗 Connected Sources &amp; References</h3>
+        <ul class="source-cards-list" id="ctx-modal-sources"></ul>
+        <form class="quick-add-form" id="ctx-add-source-form" hidden>
+          <input type="text" class="quick-input" id="ctx-source-label-input" placeholder="Label (e.g. RFC Doc, GitLab MR)" aria-label="Source label" />
+          <input type="url" class="quick-input" id="ctx-source-url-input" placeholder="https://... or obsidian://..." required aria-label="Source URL" />
+          <button type="submit" class="btn btn-primary btn-sm">+ Attach</button>
+        </form>
+      </section>
+
+      <form class="inline-add-panel" id="ctx-edit-form" hidden>
+        <strong class="card-title">✏️ Edit Title, Context &amp; Takeaways</strong>
+        <label for="ctx-edit-title" class="header-date">Title / Headline</label>
+        <input type="text" class="quick-input" id="ctx-edit-title" required />
+        <label for="ctx-edit-context" class="header-date">Background Context &amp; Notes</label>
+        <textarea class="quick-input context-textarea" id="ctx-edit-context" placeholder="Add architectural context, meeting notes, or why this matters..."></textarea>
+        <label for="ctx-edit-keypoints" class="header-date">Key Takeaways (one bullet per line)</label>
+        <textarea class="quick-input context-textarea" id="ctx-edit-keypoints" placeholder="First key takeaway&#10;Second decision or action item"></textarea>
+        <div class="inline-add-row">
+          <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="ctx-edit-cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-ghost btn-sm" data-close-modal="item-context-modal">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Native Modal: GitHub Gist Sync & Gateway Settings -->
+  <dialog class="gateway-modal" id="sync-settings-modal" closedby="any" aria-labelledby="sync-settings-title">
+    <div class="modal-header">
+      <h2 class="modal-title" id="sync-settings-title">Sync &amp; Gateway Settings</h2>
+      <button type="button" class="btn btn-icon" data-close-modal="sync-settings-modal" aria-label="Close settings">✕</button>
+    </div>
+    <div class="modal-body">
+      <form class="inline-add-panel" id="sync-settings-form">
+        <strong class="card-title">Profile &amp; Private GitHub Gist Sync</strong>
+        <label for="settings-user-name" class="header-date">Display Name</label>
+        <input type="text" class="quick-input" id="settings-user-name" placeholder="Your name (optional)" />
+
+        <label for="sync-github-pat" class="header-date">GitHub Fine-Grained PAT (stored locally only, never uploaded to Gist)</label>
+        <input type="password" class="quick-input" id="sync-github-pat" placeholder="github_pat_..." autocomplete="off" />
+
+        <label for="sync-gist-id" class="header-date">Private Gist ID (leave blank to auto-create)</label>
+        <input type="text" class="quick-input" id="sync-gist-id" placeholder="e.g. a1b2c3d4e5f6..." autocomplete="off" />
+
+        <p class="header-date" id="sync-modal-status">Status: Local Ready</p>
+
+        <div class="inline-add-row">
+          <button type="submit" class="btn btn-primary btn-sm" id="sync-now-modal-btn">Create / Sync Private Gist Now</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="save-sync-only-btn">Save Locally</button>
+        </div>
+      </form>
+
+      <form class="inline-add-panel" id="digest-settings-form">
+        <strong class="card-title">Daily Digest &amp; Custom JSON Feed</strong>
+        <label for="digest-title-input" class="header-date">Widget Title</label>
+        <input type="text" class="quick-input" id="digest-title-input" maxlength="60" placeholder="Daily Digest" />
+
+        <label for="digest-feed-url-input" class="header-date">Optional Custom Digest JSON URL (HTTPS endpoint)</label>
+        <input type="url" class="quick-input" id="digest-feed-url-input" placeholder="https://example.com/daily-digest.json" autocomplete="off" />
+
+        <div class="inline-add-row">
+          <button type="submit" class="btn btn-primary btn-sm" id="save-digest-config-btn">Save &amp; Fetch Digest</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="clear-digest-url-btn">Clear URL</button>
+        </div>
+      </form>
+
+      <div class="inline-add-panel">
+        <strong class="card-title">Workspace Setup &amp; Starter Presets</strong>
+        <div class="inline-add-row">
+          <button type="button" class="btn btn-calm btn-sm" id="open-onboarding-btn">👋 Re-open Welcome Setup</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="restore-starter-pack-btn">✨ Restore AI &amp; Web Pack</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="reset-minimal-slate-btn">🧹 Switch to Minimal Slate</button>
+        </div>
+      </div>
+
+      <div class="inline-add-panel">
+        <strong class="card-title">iPhone / iPad PWA URL Hint</strong>
+        <p class="digest-summary" id="pwa-url-hint-text">Open the hosted PWA URL on iPhone/iPad Safari and tap Share → Add to Home Screen.</p>
+        <div class="inline-add-row">
+          <input type="text" class="quick-input" id="pwa-url-hint-input" readonly aria-label="PWA URL" />
+          <button type="button" class="btn btn-ghost btn-sm" id="copy-pwa-url-btn">Copy URL</button>
+        </div>
+      </div>
+
+      <div class="inline-add-panel">
+        <strong class="card-title">JSON Backup &amp; Restore</strong>
+        <div class="inline-add-row">
+          <button type="button" class="btn btn-sm" id="export-json-btn">Export Clean JSON Backup</button>
+          <button type="button" class="btn btn-sm" id="import-json-btn">Import JSON Backup</button>
+          <input type="file" id="import-json-input" accept="application/json,.json" hidden />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-ghost btn-sm" data-close-modal="sync-settings-modal">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Native Modal: First-Run Welcome & Quick Profile Setup -->
+  <dialog class="gateway-modal" id="onboarding-modal" closedby="any" aria-labelledby="onboarding-title">
+    <div class="modal-header">
+      <h2 class="modal-title" id="onboarding-title">🌿 Welcome to Calm Morning Gateway</h2>
+      <button type="button" class="btn btn-icon" data-close-modal="onboarding-modal" aria-label="Close welcome setup">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="onboarding-intro">Set up your local-first workspace in seconds. Everything stays in your browser unless you optionally connect a Private GitHub Gist.</p>
+      <form class="inline-add-panel" id="onboarding-form">
+        <label for="onboarding-user-name" class="header-date">Display Name (optional — leave blank for neutral greetings)</label>
+        <input type="text" class="quick-input" id="onboarding-user-name" maxlength="60" placeholder="Your name (optional)" />
+
+        <label for="onboarding-weather-select" class="header-date">Weather City</label>
+        <div class="inline-add-row">
+          <select class="quick-input" id="onboarding-weather-select" aria-label="Select weather city"></select>
+          <button type="button" class="btn btn-calm btn-sm" id="onboarding-geo-btn">📍 Use My Location</button>
+        </div>
+        <span class="header-date" id="onboarding-geo-status" hidden></span>
+
+        <strong class="card-title">Starter Workspace Preset</strong>
+        <div class="preset-choice-grid">
+          <label class="preset-choice-card">
+            <input type="radio" name="onboarding-preset" value="ai-web" checked />
+            <div>
+              <strong>🚀 Frontier AI &amp; Web Engineering</strong>
+              <p class="digest-summary">Curated AI &amp; Web Dev RSS feeds, sample Big 3 objectives, and starter reading queue.</p>
+            </div>
+          </label>
+          <label class="preset-choice-card">
+            <input type="radio" name="onboarding-preset" value="minimal" />
+            <div>
+              <strong>🧹 Minimal / Blank Slate</strong>
+              <p class="digest-summary">Start completely clean with zero sample tasks, bookmarks, or RSS feeds.</p>
+            </div>
+          </label>
+        </div>
+
+        <label class="wellness-pill-text">
+          <input type="checkbox" class="tactile-checkbox" id="onboarding-digest-toggle" checked />
+          <span>Show 💬 Daily Digest &amp; Team Pulse widget</span>
+        </label>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-ghost btn-sm" id="onboarding-skip-btn">Skip / Use Defaults</button>
+      <button type="submit" class="btn btn-primary btn-sm" form="onboarding-form" id="onboarding-save-btn">Save &amp; Launch</button>
+    </div>
+  </dialog>
+
+  <!-- Native Modal: 60s Mindful Breathing (4-4-6) -->
+  <dialog class="gateway-modal" id="breathing-modal" closedby="any" aria-labelledby="breathing-modal-title">
+    <div class="modal-header">
+      <h2 class="modal-title" id="breathing-modal-title">60s Mindful Breathing (4-4-6)</h2>
+      <button type="button" class="btn btn-icon" data-close-modal="breathing-modal" aria-label="Close breathing guide">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="breathing-stage">
+        <div class="breathing-orb phase-inhale" id="breathing-orb">
+          <span class="breathing-timer-count" id="breathing-countdown">4s</span>
+        </div>
+        <p class="breathing-phase-label" id="breathing-phase-label">Inhale slowly through your nose</p>
+        <p class="header-date" id="breathing-total-label">60s remaining · 4s inhale · 4s hold · 6s exhale</p>
+        <div class="progress-bar-track" style="width: 100%; max-width: 320px;" aria-hidden="true">
+          <div class="progress-bar-fill" id="breathing-progress-fill"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-calm" id="breathing-complete-btn">✓ Finish &amp; Log Break</button>
+      <button type="button" class="btn btn-ghost" data-close-modal="breathing-modal">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Polite ARIA Toast Region -->
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

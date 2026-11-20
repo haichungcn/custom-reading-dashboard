@@ -1,0 +1,577 @@
+/* ==========================================================================
+   Calm Morning Gateway — Zero-CLS Responsive Layout & Viewport Shells
+   Supports: Desktop New Tab (>=1024px), iPad (768-1023px),
+             Mobile PWA (<=767px), and Chrome Side Panel ([data-view="sidepanel"])
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. Circadian Nerdy Wallpaper Layer & Frosted Glass Surfaces
+   -------------------------------------------------------------------------- */
+
+.gateway-bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.gateway-bg-layer[hidden] {
+  display: none !important;
+}
+
+.gateway-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: opacity 480ms ease, filter 480ms ease;
+}
+
+.gateway-bg-img.is-pixel-art {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.gateway-bg-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 480ms ease;
+}
+
+[data-bg-glass="true"] .card-panel,
+[data-bg-glass="true"] .discovery-drawer,
+[data-bg-glass="true"] .layout-customize-bar,
+[data-bg-glass="true"] .gateway-header {
+  background-color: var(--bg-surface-glass);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  backdrop-filter: blur(16px) saturate(1.1);
+  border-color: var(--border-strong);
+}
+
+[data-bg-glass="true"] .wellness-pill,
+[data-bg-glass="true"] .evening-guardian-banner {
+  background-color: var(--bg-wellness-glass);
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+  backdrop-filter: blur(14px) saturate(1.08);
+}
+
+/* --------------------------------------------------------------------------
+   1. Outer Gateway Shell (Desktop New Tab & PWA)
+   -------------------------------------------------------------------------- */
+
+.gateway-shell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 32px 56px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+[data-bg-active="true"] .gateway-shell {
+  width: min(1440px, calc(100% - 28px));
+  margin: 14px auto 52px;
+  min-height: calc(100dvh - 28px);
+  background-color: var(--bg-shell-container);
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.34);
+}
+
+/* --------------------------------------------------------------------------
+   2. Top Mindful Header
+   -------------------------------------------------------------------------- */
+
+.gateway-header {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto minmax(220px, auto);
+  align-items: center;
+  gap: 16px 20px;
+  min-height: 68px;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-theme);
+}
+
+.header-greeting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.header-greeting-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.header-greeting {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.header-date {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.header-quote {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  max-width: 52ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Evening Guardian Anti-Overwork Banner
+   -------------------------------------------------------------------------- */
+
+.evening-guardian-banner {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  padding: 18px 22px;
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-wellness);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-theme);
+}
+
+.evening-guardian-banner.is-visible,
+[data-mood="evening"] .evening-guardian-banner:not([hidden]) {
+  display: flex;
+}
+
+.evening-guardian-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 68ch;
+}
+
+.evening-guardian-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+
+.evening-guardian-text {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.evening-guardian-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Customizable 4-Zone Workspace (Top, Left, Right, Bottom) & Drag Markers
+   -------------------------------------------------------------------------- */
+
+html.is-dragging-widget,
+html.is-dragging-widget * {
+  cursor: grabbing !important;
+}
+
+.widget-zone-wide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  position: relative;
+}
+
+.widget-zone-wide:empty {
+  display: none;
+}
+
+[data-layout-edit="true"] .widget-zone-wide:empty,
+html.is-dragging-widget .widget-zone-wide:empty {
+  display: flex;
+}
+
+.widget-zone {
+  position: relative;
+}
+
+[data-layout-edit="true"] .widget-zone:empty::before,
+html.is-dragging-widget .widget-zone:empty::before {
+  content: attr(data-zone-placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 84px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--border-strong);
+  background-color: var(--bg-surface-glass);
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.widget-zone.is-drop-zone-hover {
+  outline: 2px dashed var(--accent-primary);
+  outline-offset: 6px;
+  border-radius: var(--radius-lg);
+}
+
+.widget-zone[data-drop]::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  left: var(--drop-x, 0px);
+  top: var(--drop-y, 0px);
+  width: var(--drop-w, 200px);
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background-color: var(--drop-marker-color);
+  box-shadow: 0 0 0 4px var(--accent-primary-soft);
+  z-index: 70;
+}
+
+.gateway-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 20px;
+  align-items: start;
+  flex: 1 0 auto;
+}
+
+html:not([data-layout-edit="true"]):not(.is-dragging-widget) .gateway-grid:has(.col-execution:empty) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+html:not([data-layout-edit="true"]):not(.is-dragging-widget) .gateway-grid:has(.col-execution:empty) .col-execution {
+  display: none;
+}
+
+html:not([data-layout-edit="true"]):not(.is-dragging-widget) .gateway-grid:has(.col-knowledge:empty) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+html:not([data-layout-edit="true"]):not(.is-dragging-widget) .gateway-grid:has(.col-knowledge:empty) .col-knowledge {
+  display: none;
+}
+
+html:not([data-layout-edit="true"]):not(.is-dragging-widget) .gateway-grid:has(.col-execution:empty):has(.col-knowledge:empty) {
+  display: none;
+}
+
+.col-execution,
+.col-knowledge {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  transition: opacity 300ms ease;
+}
+
+/* Zero-CLS Reserved Minimum Heights for Async Lists */
+.gateway-grid .card-panel {
+  min-height: 180px;
+}
+
+.objective-list {
+  min-height: 88px;
+}
+
+.todo-list {
+  min-height: 112px;
+}
+
+.digest-list {
+  min-height: 120px;
+}
+
+.bookmark-list {
+  min-height: 120px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Focus Mode ([data-focus="true"])
+   -------------------------------------------------------------------------- */
+
+[data-focus="true"] .discovery-drawer {
+  max-height: 0;
+  min-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: -12px;
+  opacity: 0;
+  overflow: hidden;
+  border-color: transparent;
+  pointer-events: none;
+}
+
+[data-focus="true"] .focus-hide,
+[data-focus="true"] [data-focus-hide="true"] {
+  display: none !important;
+}
+
+[data-focus="true"] .col-knowledge {
+  opacity: 0.52;
+}
+
+[data-focus="true"] .col-knowledge:hover,
+[data-focus="true"] .col-knowledge:focus-within {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   6. Bottom Collapsible Discovery Stream Drawer
+   -------------------------------------------------------------------------- */
+
+.discovery-drawer {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 16px 20px 20px;
+  min-height: 220px;
+  transition: var(--transition-theme), max-height 320ms ease, opacity 260ms ease, padding 260ms ease;
+}
+
+.discovery-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.discovery-drawer-title-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  min-width: 0;
+}
+
+.discovery-drawer-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.discovery-drawer.is-collapsed {
+  min-height: 48px;
+  padding: 10px 20px;
+}
+
+.discovery-drawer.is-collapsed .discovery-cards-grid,
+.discovery-drawer.is-collapsed .discovery-drawer-body {
+  display: none;
+}
+
+.discovery-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+  min-height: 132px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Mobile Bottom Tab Bar (Hidden on Desktop/Tablet)
+   -------------------------------------------------------------------------- */
+
+.mobile-tab-bar {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   8. Chrome Side Panel Shell ([data-view="sidepanel"])
+   -------------------------------------------------------------------------- */
+
+[data-view="sidepanel"] .gateway-shell,
+.sidepanel-shell {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 12px 14px 20px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+[data-view="sidepanel"] .mobile-tab-bar {
+  display: none;
+}
+
+.sidepanel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 2px 2px 4px;
+}
+
+.sidepanel-shell .card-panel {
+  padding: 14px;
+  min-height: 0;
+  border-radius: var(--radius-md);
+}
+
+.sidepanel-shell .card-header {
+  margin-bottom: 10px;
+}
+
+.sidepanel-shell .objective-list,
+.sidepanel-shell .todo-list,
+.sidepanel-shell .bookmark-list {
+  min-height: 0;
+}
+
+/* --------------------------------------------------------------------------
+   9. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+
+/* Compact Desktop / Large Tablet: wrap header cleanly */
+@media (max-width: 1180px) {
+  .gateway-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .gateway-header .wellness-pill {
+    grid-column: 1 / -1;
+    justify-self: start;
+    order: 3;
+  }
+}
+
+/* iPad / Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+  .gateway-shell {
+    padding: 20px 22px;
+    gap: 16px;
+  }
+
+  .gateway-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Mobile / iPhone PWA (<= 767px) */
+@media (max-width: 767px) {
+  .gateway-shell {
+    padding: 14px 16px calc(84px + env(safe-area-inset-bottom, 0px));
+    gap: 14px;
+  }
+
+  .gateway-header {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .header-quote {
+    white-space: normal;
+  }
+
+  .header-controls {
+    justify-content: flex-start;
+  }
+
+  .gateway-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .gateway-grid .card-panel {
+    min-height: 0;
+  }
+
+  .discovery-drawer {
+    padding: 14px 16px;
+    min-height: 0;
+  }
+
+  .discovery-cards-grid {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  /* Mobile Section Tab Filtering (disabled during Layout Customize mode so all zones are visible) */
+  html:not([data-layout-edit="true"])[data-active-tab="focus"] [data-mobile-section]:not([data-mobile-section="focus"]),
+  html:not([data-layout-edit="true"])[data-active-tab="digest"] [data-mobile-section]:not([data-mobile-section="digest"]),
+  html:not([data-layout-edit="true"])[data-active-tab="queue"] [data-mobile-section]:not([data-mobile-section="queue"]),
+  html:not([data-layout-edit="true"])[data-active-tab="feed"] [data-mobile-section]:not([data-mobile-section="feed"]) {
+    display: none;
+  }
+
+  html:not([data-layout-edit="true"])[data-active-tab="focus"] .col-knowledge:not(:has([data-mobile-section="focus"])),
+  html:not([data-layout-edit="true"])[data-active-tab="digest"] .col-execution:not(:has([data-mobile-section="digest"])),
+  html:not([data-layout-edit="true"])[data-active-tab="queue"] .col-execution:not(:has([data-mobile-section="queue"])),
+  html:not([data-layout-edit="true"])[data-active-tab="feed"] .gateway-grid:not(:has([data-mobile-section="feed"])) {
+    display: none;
+  }
+
+  [data-active-tab="feed"] .discovery-drawer.is-collapsed .discovery-cards-grid,
+  [data-active-tab="feed"] .discovery-drawer.is-collapsed .discovery-drawer-body {
+    display: grid;
+  }
+
+  /* Sticky Bottom Tab Bar with iOS Safe Area */
+  .mobile-tab-bar {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    box-shadow: 0 -4px 20px rgba(43, 38, 35, 0.08);
+    transition: var(--transition-theme);
+  }
+}

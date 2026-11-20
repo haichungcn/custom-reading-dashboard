@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" data-view="sidepanel" data-mood="morning" data-theme="auto" data-focus="false">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calm Gateway Companion</title>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <div class="sidepanel-shell" id="sidepanel-shell">
+    <!-- Companion Header -->
+    <header class="sidepanel-header">
+      <h1 class="card-title" id="sp-brand-title">🌿 Calm Gateway</h1>
+      <a
+        class="btn btn-ghost btn-sm"
+        id="sp-open-full-link"
+        href="index.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Open Full Calm Gateway in a new tab"
+      >↗ Full</a>
+    </header>
+
+    <!-- Active Tab Hero Capture Card -->
+    <section class="active-tab-hero" id="sp-active-tab-hero" aria-labelledby="sp-active-tab-heading">
+      <div class="card-header">
+        <span class="card-title" id="sp-active-tab-heading">Active Tab</span>
+        <span class="active-tab-domain" id="sp-active-tab-domain">Checking tab…</span>
+      </div>
+      <h2 class="active-tab-title" id="sp-active-tab-title">Loading active browser tab…</h2>
+      <div class="filter-pills" id="sp-active-tab-tags" role="group" aria-label="Quick capture tags">
+        <button type="button" class="filter-pill" data-tag="ai" aria-pressed="false">#ai</button>
+        <button type="button" class="filter-pill" data-tag="arch" aria-pressed="false">#arch</button>
+        <button type="button" class="filter-pill" data-tag="perf" aria-pressed="false">#perf</button>
+        <button type="button" class="filter-pill" data-tag="read-later" aria-pressed="false">#read-later</button>
+      </div>
+      <div class="active-tab-actions">
+        <button type="button" class="btn btn-primary btn-sm" id="sp-bookmark-tab-btn">🔖 Bookmark Tab</button>
+        <button type="button" class="btn btn-calm btn-sm" id="sp-todo-tab-btn">+ Add as TODO</button>
+      </div>
+    </section>
+
+    <!-- Circadian Wellness Mini Strip -->
+    <section class="wellness-mini-strip" id="sp-wellness-mini-strip" aria-label="Mindful wellness cue">
+      <span id="sp-wellness-text">🌿 Mindful Stretch: Roll your shoulders gently.</span>
+      <button type="button" class="btn btn-calm btn-sm" id="sp-wellness-done-btn" aria-label="Log mindful break" title="Log break taken">✓</button>
+    </section>
+
+    <!-- Today's Objectives ("The Big 3") -->
+    <section class="card-panel" aria-labelledby="sp-objectives-heading">
+      <div class="card-header">
+        <h2 class="card-title" id="sp-objectives-heading">🎯 Today's Objectives</h2>
+        <span class="card-badge" id="sp-objectives-badge">0 of 3</span>
+      </div>
+      <div class="card-body">
+        <ul class="objective-list" id="sp-objective-list"></ul>
+        <form class="quick-add-form" id="sp-objective-add-form">
+          <input
+            type="text"
+            class="quick-input"
+            id="sp-objective-input"
+            placeholder="+ Add Objective..."
+            aria-label="Add daily objective"
+          />
+          <button type="submit" class="btn btn-primary btn-sm">Add</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Tactical TODOs -->
+    <section class="card-panel" aria-labelledby="sp-todos-heading">
+      <div class="card-header">
+        <h2 class="card-title" id="sp-todos-heading">✅ Tactical TODOs</h2>
+        <span class="card-badge" id="sp-todos-badge">0%</span>
+      </div>
+      <div class="card-body">
+        <div class="progress-strip">
+          <span id="sp-todos-progress-label">0 of 0 · 0%</span>
+          <div class="progress-bar-track" aria-hidden="true">
+            <div class="progress-bar-fill" id="sp-todos-progress-fill"></div>
+          </div>
+        </div>
+        <ul class="todo-list" id="sp-todo-list"></ul>
+        <form class="quick-add-form" id="sp-todo-add-form">
+          <input
+            type="text"
+            class="quick-input"
+            id="sp-todo-input"
+            placeholder="+ Quick add TODO..."
+            aria-label="Quick add tactical TODO"
+          />
+          <button type="submit" class="btn btn-primary btn-sm">Add</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Reading Queue (Inbox Bookmarks) -->
+    <section class="card-panel" aria-labelledby="sp-bookmarks-heading">
+      <div class="card-header">
+        <h2 class="card-title" id="sp-bookmarks-heading">📚 Reading Queue</h2>
+        <span class="card-badge" id="sp-bookmarks-badge">0 inbox</span>
+      </div>
+      <div class="card-body">
+        <ul class="bookmark-list" id="sp-bookmark-list"></ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- Companion Context & Sources Reader Modal -->
+  <dialog class="gateway-modal context-reader-modal" id="sp-context-modal" closedby="any" aria-labelledby="sp-ctx-title">
+    <div class="modal-header">
+      <span class="pill-badge" id="sp-ctx-badge">Context</span>
+      <button type="button" class="btn btn-icon" id="sp-ctx-close-btn" aria-label="Close context view">✕</button>
+    </div>
+    <div class="modal-body">
+      <h2 class="context-reader-headline" id="sp-ctx-title">Item Title</h2>
+      <p class="context-prose" id="sp-ctx-prose"></p>
+      <section class="context-section" id="sp-ctx-keypoints-wrap" hidden>
+        <h3 class="context-section-label">✨ Key Takeaways</h3>
+        <ul class="context-keypoints-list" id="sp-ctx-keypoints"></ul>
+      </section>
+      <section class="context-section">
+        <h3 class="context-section-label">🔗 Sources</h3>
+        <ul class="source-cards-list" id="sp-ctx-sources"></ul>
+      </section>
+    </div>
+  </dialog>
+
+  <!-- Polite ARIA Toast Region -->
+  <div class="toast-region" id="sp-toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module" src="js/sidepanel.js"></script>
+</body>
+</html>
