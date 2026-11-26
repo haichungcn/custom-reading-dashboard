@@ -1,5 +1,4 @@
-# Calm Morning Gateway
-
+# Custom Reading Dashboard
 A mindful, local-first software engineering workspace across **Chrome New Tab (`index.html`)**, **Chrome Side Panel (`sidepanel.html`)**, **iPhone & iPad PWA (`pwa-manifest.json` + `sw-pwa.js`)**, **Private GitHub Gist Sync**, and a **Generic Obsidian & Markdown CLI Bridge (`bridge/sync_gateway_obsidian.py`)**.
 
 👉 **Full Feature & Customization Reference**: [`docs/FEATURES.md`](docs/FEATURES.md) · **Chrome Web Store Kit**: [`docs/CHROME_WEB_STORE.md`](docs/CHROME_WEB_STORE.md) · **Privacy Policy**: [`PRIVACY.md`](PRIVACY.md) · **License**: [`LICENSE`](LICENSE)
