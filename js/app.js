@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Main Gateway Controller (`js/app.js`)
+ * Custom Reading Dashboard — Main Gateway Controller (`js/app.js`)
  *
  * Powers both the Chrome MV3 New Tab (`index.html`) and the iOS/iPadOS PWA.
  * Enforces strict MV3 CSP, safe DOM element creation, async/await only,
@@ -4171,7 +4171,7 @@ function bindEvents() {
     if (modal instanceof HTMLDialogElement && modal.open) {
       modal.close();
     }
-    showToast(presetId === 'minimal' ? 'Minimal workspace ready' : 'Welcome to Calm Morning Gateway');
+    showToast(presetId === 'minimal' ? 'Minimal workspace ready' : 'Welcome to Custom Reading Dashboard');
 
     try {
       await refreshWeather(true);
@@ -4634,7 +4634,7 @@ function bindWidgetDragAndDrop() {
 }
 
 /**
- * Initialize the Main Calm Morning Gateway application.
+ * Initialize the Main Custom Reading Dashboard application.
  */
 async function init() {
   setActiveMobileTab('focus');

@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Chrome MV3 Background Service Worker (`service-worker.js`)
+ * Custom Reading Dashboard — Chrome MV3 Background Service Worker (`service-worker.js`)
  *
  * Ephemeral, stateless background worker:
  * - Configures Action click -> Side Panel (`openPanelOnActionClick: true`)

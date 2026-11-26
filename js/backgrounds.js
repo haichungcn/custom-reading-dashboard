@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Circadian Nerdy Background Engine (`js/backgrounds.js`)
+ * Custom Reading Dashboard — Circadian Nerdy Background Engine (`js/backgrounds.js`)
  *
  * Provides a zero-dependency, offline-ready library of nerdy wallpapers
  * (Pixelated 8/16-bit scenes, PCB & Isometric Tech, Modern Algorithmic Geometry,

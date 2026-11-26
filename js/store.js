@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Universal Reactive Store (`js/store.js`)
+ * Custom Reading Dashboard — Universal Reactive Store (`js/store.js`)
  *
  * Works identically across Chrome MV3 Extension (New Tab / Side Panel / Service Worker),
  * iOS Safari PWA (`localStorage`), and Node.js unit tests (in-memory `Map` fallback).
@@ -3010,7 +3010,7 @@ export function exportRssSourcesOpml(sources = []) {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<opml version="2.0">',
     '  <head>',
-    '    <title>Calm Morning Gateway RSS Subscriptions</title>',
+    '    <title>Custom Reading Dashboard RSS Subscriptions</title>',
     '  </head>',
     '  <body>',
     '    <outline text="Feeds" title="Feeds">',

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Calm Morning Gateway — Generic Markdown-to-Obsidian & Private GitHub Gist Bridge.
+"""Custom Reading Dashboard — Generic Markdown-to-Obsidian & Private GitHub Gist Bridge.
 
 Stdlib-only Python 3.9+ bridge that:
 1. Parses Daily Digest Markdown files (`YYYY-MM-DD*.md`) into `GatewayState v1`.
@@ -1174,7 +1174,7 @@ def render_daily_markdown(state: dict[str, Any]) -> str:
         f"breaks_taken: {breaks_taken}",
         "---",
         "",
-        f"# Calm Morning Gateway — {active_date}",
+        f"# Custom Reading Dashboard — {active_date}",
         "",
         "## 🎯 Today's Objectives (Big 3)",
     ]
@@ -1581,7 +1581,7 @@ def resolve_runtime_options(
 def build_arg_parser() -> argparse.ArgumentParser:
     """Create CLI argument parser matching contracts.md §5."""
     parser = argparse.ArgumentParser(
-        description="Sync Calm Morning Gateway state with Digest Markdown, Obsidian Vault, and Private GitHub Gist."
+        description="Sync Custom Reading Dashboard state with Digest Markdown, Obsidian Vault, and Private GitHub Gist."
     )
     parser.add_argument(
         "--config",

@@ -59,7 +59,7 @@ import {
   verifyCircadianNerdyBackgrounds
 } from './verify_v2_features.mjs';
 
-describe('Calm Morning Gateway v2 — Complete Feature Suite', () => {
+describe('Custom Reading Dashboard v2 — Complete Feature Suite', () => {
   it('verifies MV3 DOM hooks, drag handles, dialogs closedby="any", and PWA precache parity', async () => {
     await verifyDomHooksAndPrecacheParity();
   });

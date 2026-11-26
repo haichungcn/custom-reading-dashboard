@@ -45,7 +45,7 @@ A mindful, local-first software engineering workspace across **Chrome New Tab (`
 1. Open Chrome and navigate to `chrome://extensions`.
 2. Toggle **Developer mode** ON (top-right).
 3. Click **Load unpacked** (or click **🔄 Reload** if already loaded) and select the cloned repository root directory (`custom-reading-dashboard`).
-4. Open a **New Tab** to launch Calm Morning Gateway, or click the toolbar icon to open the **Side Panel Companion**.
+4. Open a **New Tab** to launch Custom Reading Dashboard, or click the toolbar icon to open the **Side Panel Companion**.
 
 ### Build a Clean Chrome Web Store Release Package
 

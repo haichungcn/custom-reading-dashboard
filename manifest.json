@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Calm Morning Gateway",
+  "name": "Custom Reading Dashboard",
   "short_name": "Calm Gateway",
   "version": "1.3.0",
   "description": "Mindful morning dashboard: Daily Objectives, TODOs, Daily Digest, Weather, RSS, Widget Store, 4-zone layout, and circadian art.",

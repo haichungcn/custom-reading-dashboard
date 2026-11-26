@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Chrome Side Panel Companion (`js/sidepanel.js`)
+ * Custom Reading Dashboard — Chrome Side Panel Companion (`js/sidepanel.js`)
  *
  * Compact 360px live-reactive companion view:
  * - Active Tab Hero Capture (`chrome.tabs.query`, `onActivated`, `onUpdated`)

@@ -515,4 +515,4 @@ await verifyMv3AndStaticRules();
 await verifyStoreCrudAndMerge();
 await verifyGistRssAndWellness();
 await runAllV2FeatureTests();
-console.log(`PASS: Calm Morning Gateway verification suite (${STORAGE_KEY}) — all MV3, CSP, XSS, Store CRUD, Gist Sync, RSS/Atom, Wellness, Widget Store, Weather, Layout, Slack Collapse, and Circadian Wallpaper assertions succeeded.`);
+console.log(`PASS: Custom Reading Dashboard verification suite (${STORAGE_KEY}) — all MV3, CSP, XSS, Store CRUD, Gist Sync, RSS/Atom, Wellness, Widget Store, Weather, Layout, Slack Collapse, and Circadian Wallpaper assertions succeeded.`);

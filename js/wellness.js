@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Circadian Mood & Mindful Wellness Engine (`js/wellness.js`)
+ * Custom Reading Dashboard — Circadian Mood & Mindful Wellness Engine (`js/wellness.js`)
  *
  * Computes temporal circadian themes, anti-overwork wind-down cues (17:30+),
  * gentle stretch/hydration/20-20-20 rotation prompts, and 4-4-6 breathing phases.

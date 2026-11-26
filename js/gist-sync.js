@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Conflict-Safe Private GitHub Gist Sync (`js/gist-sync.js`)
+ * Custom Reading Dashboard — Conflict-Safe Private GitHub Gist Sync (`js/gist-sync.js`)
  *
  * Implements two-way synchronization against `https://api.github.com/gists` using
  * `gateway-state.json` while keeping Personal Access Tokens strictly local-only.
@@ -138,7 +138,7 @@ export async function createPrivateGist(githubPat, initialState, fetchImpl = glo
   assertFetchImpl(fetchImpl);
 
   const payload = {
-    description: 'Calm Morning Gateway — Synced State',
+    description: 'Custom Reading Dashboard — Synced State',
     public: false,
     files: {
       [GIST_FILENAME]: {

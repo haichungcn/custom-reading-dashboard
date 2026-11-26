@@ -1,5 +1,5 @@
 {
-  "name": "Calm Morning Gateway",
+  "name": "Custom Reading Dashboard",
   "short_name": "Calm Gateway",
   "description": "Warm, mindful daily objectives, tactical TODOs, daily digest, weather, and reading queue across desktop, iPhone, and iPad.",
   "start_url": "./index.html?source=pwa",

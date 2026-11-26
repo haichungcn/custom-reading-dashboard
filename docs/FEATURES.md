@@ -1,6 +1,6 @@
-# Calm Morning Gateway — Complete Feature Guide
+# Custom Reading Dashboard — Complete Feature Guide
 
-This document explains every feature in **Calm Morning Gateway** (`v1.3.0`), how each feature works under the hood, and how to configure, rearrange, and test it across **Chrome (New Tab + Side Panel)** and **iPhone / iPad (Standalone PWA)**.
+This document explains every feature in **Custom Reading Dashboard** (`v1.3.0`), how each feature works under the hood, and how to configure, rearrange, and test it across **Chrome (New Tab + Side Panel)** and **iPhone / iPad (Standalone PWA)**.
 
 ---
 

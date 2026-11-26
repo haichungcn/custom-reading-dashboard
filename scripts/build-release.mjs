@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Calm Morning Gateway — Deterministic Chrome Web Store Release Packager
+ * Custom Reading Dashboard — Deterministic Chrome Web Store Release Packager
  *
  * Zero-dependency Node.js ES module that:
  * 1. Validates manifest.json (MV3, version, description <= 132 chars, icons PNG dimensions).

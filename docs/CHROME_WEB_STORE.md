@@ -1,17 +1,17 @@
-# Chrome Web Store Listing — Calm Morning Gateway
+# Chrome Web Store Listing — Custom Reading Dashboard
 
 > Last Updated: 2026-11-20
 
 ## Store Listing
 
 **Extension Name** [REQUIRED]
-Calm Morning Gateway
+Custom Reading Dashboard
 
 **Short Description** [REQUIRED]
 Mindful morning dashboard: Daily Objectives, TODOs, Daily Digest, Weather, RSS, Widget Store, 4-zone layout, and circadian art.
 
 **Detailed Description** [REQUIRED]
-Calm Morning Gateway turns your New Tab page and Chrome Side Panel into a calm, local-first daily workspace without trackers, accounts, or clutter.
+Custom Reading Dashboard turns your New Tab page and Chrome Side Panel into a calm, local-first daily workspace without trackers, accounts, or clutter.
 
 Key Features:
 - Daily Objectives (The Big 3) and Tactical TODOs with completion progress, tag parsing, rich context notes, and one-click day rollover.

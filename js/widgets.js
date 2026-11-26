@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Widget Store Catalog & Weather/Utility Engines (`js/widgets.js`)
+ * Custom Reading Dashboard — Widget Store Catalog & Weather/Utility Engines (`js/widgets.js`)
  *
  * Defines the unified Widget Store catalog (both Core Workspace Panels and addable
  * Engineering/Wellness widgets) and zero-key Open-Meteo Weather Forecast + World Clock helpers.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unit tests for Calm Morning Gateway Slack-to-Obsidian & Gist Bridge."""
+"""Unit tests for Custom Reading Dashboard Slack-to-Obsidian & Gist Bridge."""
 
 from __future__ import annotations
 
@@ -333,7 +333,7 @@ class TestObsidianExportAndDryRunCli(unittest.TestCase):
             seed["objectives"] = [
                 {
                     "id": "obj_seed_1",
-                    "title": "Ship Calm Morning Gateway",
+                    "title": "Ship Custom Reading Dashboard",
                     "url": "https://github.com/example/calm-gateway",
                     "urlLabel": "Repo",
                     "completed": False,
@@ -403,7 +403,7 @@ class TestObsidianExportAndDryRunCli(unittest.TestCase):
             self.assertIn('focus_theme: "Calm execution first."', daily_md)
             self.assertIn("breaks_taken: 2", daily_md)
             self.assertIn("## 🎯 Today's Objectives (Big 3)", daily_md)
-            self.assertIn("- [ ] Ship Calm Morning Gateway ([Repo](https://github.com/example/calm-gateway))", daily_md)
+            self.assertIn("- [ ] Ship Custom Reading Dashboard ([Repo](https://github.com/example/calm-gateway))", daily_md)
             self.assertIn("## 💬 Daily Digest Summary", daily_md)
             self.assertIn("**#frontend** [Decision] SSO auth proxy migration", daily_md)
 

@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Standalone Mobile PWA Offline Service Worker (`sw-pwa.js`)
+ * Custom Reading Dashboard — Standalone Mobile PWA Offline Service Worker (`sw-pwa.js`)
  *
  * Pre-caches core shell assets for iOS/iPadOS/Android offline resilience.
  * Uses async/await exclusively (no promise chaining).
@@ -7,7 +7,7 @@
  * - Cache-first with background refresh for same-origin static assets
  */
 
-const CACHE_NAME = 'calm-gateway-pwa-v4';
+const CACHE_NAME = 'custom-reading-dashboard-pwa-v4';
 
 const PRECACHE_URLS = [
   './',

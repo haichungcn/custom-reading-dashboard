@@ -1,5 +1,5 @@
 /**
- * Calm Morning Gateway — Zero-Dependency RSS 2.0, Atom 1.0 & HTML Blog Engine (`js/rss-engine.js`)
+ * Custom Reading Dashboard — Zero-Dependency RSS 2.0, Atom 1.0 & HTML Blog Engine (`js/rss-engine.js`)
  *
  * Uses a deterministic pure-JS XML/HTML scanner (no `DOMParser` dependency) so it runs
  * identically across Browser Windows, Chrome MV3 Service Workers, Safari PWA, and Node.js.

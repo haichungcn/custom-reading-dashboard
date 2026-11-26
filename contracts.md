@@ -1,4 +1,4 @@
-# Calm Morning Gateway — Shared Interface & Architecture Contracts (`v1.3`)
+# Custom Reading Dashboard — Shared Interface & Architecture Contracts (`v1.3`)
 
 Every module, stylesheet, HTML view, service worker, and Python bridge script MUST adhere strictly to the schemas, function signatures, DOM hooks, and security invariants locked in this file.
 

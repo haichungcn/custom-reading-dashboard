@@ -1,15 +1,15 @@
-# Privacy Policy for Calm Morning Gateway
+# Privacy Policy for Custom Reading Dashboard
 
 **Effective Date:** 2026-11-20  
-**Applies to:** Calm Morning Gateway Chrome Extension (Manifest V3) and Standalone Progressive Web App (PWA)
+**Applies to:** Custom Reading Dashboard Chrome Extension (Manifest V3) and Standalone Progressive Web App (PWA)
 
 ---
 
 ## 1. Local-First Core Architecture
 
-Calm Morning Gateway is designed to be **local-first and privacy-preserving**:
+Custom Reading Dashboard is designed to be **local-first and privacy-preserving**:
 
-- **Zero Analytics, Tracking, or Telemetry**: Calm Morning Gateway does not use Google Analytics, third-party ad networks, tracking pixels, behavioral telemetry, or remote scripts.
+- **Zero Analytics, Tracking, or Telemetry**: Custom Reading Dashboard does not use Google Analytics, third-party ad networks, tracking pixels, behavioral telemetry, or remote scripts.
 - **No Developer Backend**: The extension has no developer-operated server or database. All dashboard data stays on your device unless you explicitly configure an external sync destination.
 
 ---
@@ -27,7 +27,7 @@ All workspace data is stored locally in your browser via `chrome.storage.local` 
 
 ## 3. Outbound Network Requests (Only When Enabled or Needed)
 
-Calm Morning Gateway communicates only with the endpoints required for features you use:
+Custom Reading Dashboard communicates only with the endpoints required for features you use:
 
 1. **Open-Meteo Weather & Geocoding (`api.open-meteo.com`, `geocoding-api.open-meteo.com`)**:
    - When the Weather Forecast widget is active, the extension fetches forecasts for your chosen city (or coordinates if you click **Use My Location** and grant browser geolocation permission). No user identity or browsing history is sent.

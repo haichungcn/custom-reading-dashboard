@@ -1,6 +1,6 @@
 # iPhone & iPad PWA + 1-Tap Share Sheet Shortcut Guide
 
-Run **Calm Morning Gateway** as a standalone home-screen PWA on iPhone and iPad, synced bidirectionally with your desktop Chrome extension and optional Obsidian bridge via a **Private GitHub Gist** (`gateway-state.json`).
+Run **Custom Reading Dashboard** as a standalone home-screen PWA on iPhone and iPad, synced bidirectionally with your desktop Chrome extension and optional Obsidian bridge via a **Private GitHub Gist** (`gateway-state.json`).
 
 ---
 
@@ -8,7 +8,7 @@ Run **Calm Morning Gateway** as a standalone home-screen PWA on iPhone and iPad,
 
 1. On GitHub, open **Settings → Developer settings → Personal access tokens → Fine-grained tokens**.
 2. Create a token with **only** `Gists: Read and write` permission (no repository scopes needed).
-3. On your Mac in Calm Morning Gateway (`New Tab` → **`⚙️ Sync Settings`**):
+3. On your Mac in Custom Reading Dashboard (`New Tab` → **`⚙️ Sync Settings`**):
    - Paste your Fine-Grained PAT.
    - Leave **Gist ID** blank and click **Create & Link Private Gist** (or paste an existing 32-char hex Gist ID).
    - Copy the generated **Gist ID** and **PWA URL** (or scan the QR code displayed in Sync Settings).
@@ -19,7 +19,7 @@ Run **Calm Morning Gateway** as a standalone home-screen PWA on iPhone and iPad,
 
 ## 2. Host & Install the Standalone PWA on iPhone / iPad
 
-Because `Calm Morning Gateway` uses pure static HTML/CSS/ES Modules (`index.html`, `pwa-manifest.json`, `sw-pwa.js`), you can host it anywhere over HTTPS:
+Because `Custom Reading Dashboard` uses pure static HTML/CSS/ES Modules (`index.html`, `pwa-manifest.json`, `sw-pwa.js`), you can host it anywhere over HTTPS:
 
 - **Option A — GitHub Pages / Cloudflare Pages (Recommended)**:
   Deploy the repository root directory (`index.html`, `pwa-manifest.json`, `sw-pwa.js`, `css/`, `js/`, `icons/`) to a private/public static site (your state stays in your own Private GitHub Gist, never in the static host).
